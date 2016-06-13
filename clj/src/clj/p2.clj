@@ -1,9 +1,11 @@
 ;; Problem 2
 (ns clj.p2)
 
-; (def fibs
-;     (lazy-cat [0 1] (map + fibs (rest fibs))))
-; Optimized solution
+;; Initial approach
+(def fibs-initial
+    (lazy-cat [0 1] (map + fibs (rest fibs))))
+
+;; Optimized solution
 (defn fibs []
     (map first (iterate (fn [[a b]] [b (+ a b)]) [0 1])))
 
