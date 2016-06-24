@@ -3,4 +3,7 @@
   :url ""
   :license {:name "MIT"
             :url ""}
-  :dependencies [[org.clojure/clojure "1.8.0"]])
+  :dependencies [[org.clojure/clojure "1.8.0"]
+                 [org.clojure/math.numeric-tower "0.0.4"]
+                 ])
+
