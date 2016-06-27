@@ -2,8 +2,8 @@
 (ns clj.p4)
 
 ;; Initial approach
-(defn explode-to-digits [number]
-  (into [] (map #(Character/getNumericValue %) (str number))))
+(defn explode-to-digits [n]
+  (map #(Integer/parseInt (str %)) (seq (str n))))
 
 (defn palindrome? [number]
   (= (reverse (explode-to-digits number)) (explode-to-digits number)))
