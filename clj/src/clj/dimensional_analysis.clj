@@ -53,16 +53,16 @@
        :Dimension {:M 0
                    :L 1
                    :T -1}}
-   :g {:Type :variable
-       :Symbol "g"
+   :a {:Type :variable
+       :Symbol "a"
        :Dimension {:M 0
                    :L 1
                    :T -2}}
-   :h {:Type :variable
-       :Symbol "h"
+   :u {:Type :variable
+       :Symbol "u"
        :Dimension {:M 0
                    :L 1
-                   :T 0}}
+                   :T -1}}
    :t {:Type :variable
        :Symbol "b"
        :Dimension {:M 0
@@ -143,7 +143,7 @@
   [value]
   (let [parsed-value (read-string value)]
     {:Type :constant
-     :Symbol ""
+     :Symbol parsed-value
      :Dimension Constant}))
 
 (defn find-sym
