@@ -1,0 +1,6 @@
+[package]
+name = "RAdventOfCode"
+version = "0.1.0"
+authors = ["chinmaydd <chinmay1dd@gmail.com>"]
+
+[dependencies]
