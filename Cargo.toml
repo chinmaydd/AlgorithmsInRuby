@@ -1,5 +1,5 @@
 [package]
-name = "RAdventOfCode"
+name = "rust_advent_of_code"
 version = "0.1.0"
 authors = ["chinmaydd <chinmay1dd@gmail.com>"]
 
