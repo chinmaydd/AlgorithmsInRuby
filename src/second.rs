@@ -1,4 +1,40 @@
 mod util;
+use std::collections::HashMap;
+
+fn next_key_bathroom(key_seq: &str, init_key: char) -> char {
+   let bathroom_lock = [['0','0', '1', '0', '0'], 
+                       ['0', '2', '3', '4', '0'], 
+                       ['5', '6', '7', '8', '9'], 
+                       ['0', 'A', 'B', 'C', '0'], 
+                       ['0', '0', 'D', '0', '0']];
+
+    let mut codemap: HashMap<char, (i32, i32)> = HashMap::new();
+
+    codemap.insert('1', (0, 2));
+    codemap.insert('2', (1, 1));
+    codemap.insert('3', (1, 2));
+    codemap.insert('4', (1, 3));
+    codemap.insert('5', (2, 0));
+    codemap.insert('6', (2, 1));
+    codemap.insert('7', (2, 2));
+    codemap.insert('8', (2, 3));
+    codemap.insert('9', (2, 4));
+    codemap.insert('A', (3, 1));
+    codemap.insert('B', (3, 2));
+    codemap.insert('C', (3, 3));
+    codemap.insert('D', (4, 2));
+    
+    let mut curr_key = init_key;
+
+    for direction in key_seq.chars() {
+        match direction {
+            // Solve!
+            _ => {}
+        }
+    }
+
+    curr_key
+}
 
 // Contains the main function logic.
 // We again use pattern matching for simplifying the problem solving by including border cases.
@@ -21,7 +57,23 @@ fn next_key(key_seq: &str, init_key: i32) -> i32 {
 
     curr_key
 }
-    
+
+fn find_bathroom_code(input: String) -> String {
+    let mut final_code = String::from("");
+
+    let split = input.split("\n");
+    let vec = split.collect::<Vec<_>>();
+
+    let mut curr_key = '5';
+
+    for sequence in vec {
+        curr_key = next_key_bathroom(sequence.clone(), curr_key);
+        final_code.push_str(&curr_key.to_string());
+    }
+
+    final_code
+}
+
 // Function which takes in a long string of operations, seperated by newline characters and applies
 // the next_key() function on each of them.
 // It returns the final code string as asked in the problem.
