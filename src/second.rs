@@ -1,18 +1,4 @@
-use std::fs::File;
-use std::io::Read;
-
-// Given a path to a file, this function reads it into a string and returns it.
-// NOTE: Should ideally move this function to a util.rs file.
-fn read_into_string(filepath: &str) -> String {
-    let mut input = String::new();
-    let mut f = File::open(filepath).expect("Unable to open required file.");
-    f.read_to_string(&mut input).expect("Unable to read string.");
-
-    // Removing trailing newline.
-    input.pop().expect("Could not remove trailing newline.");
-
-    input
-}
+mod util;
 
 // Contains the main function logic.
 // We again use pattern matching for simplifying the problem solving by including border cases.
@@ -58,7 +44,7 @@ fn find_code(input: String) -> String {
 fn main() {
     // Read input into a file.
     // In this case it is the input we need to solve for.
-    let input_string = read_into_string("/home/chinmay_dd/Projects/RAdventOfCode/inp/inp2");
+    let input_string = util::read_into_string("/home/chinmay_dd/Projects/RAdventOfCode/inp/inp2");
 
     // Find the final code sequence
     let code = find_code(input_string.clone());

@@ -1,5 +1,4 @@
-use std::fs::File;
-use std::io::Read;
+mod util;
 
 // This enum will help us give a direction to our path tracer.
 #[derive(Debug, Clone, Copy, PartialEq)]
@@ -43,18 +42,6 @@ fn convert_token_to_move(token: &str) -> Move {
     new_move
 }
 
-// Given a path to a file, this function reads it into a string and returns it.
-fn read_into_string(filepath: &str) -> String {
-    let mut input = String::new();
-    let mut f = File::open(filepath).expect("Unable to open required file.");
-    f.read_to_string(&mut input).expect("Unable to read string");
-
-    // Removing trailing newline.
-    input.pop().expect("Could not remove trailing newline.");
-
-    input
-}
-
 // This function basically converts the given comma separated string,
 // into a vector of Move(s).
 fn tokenize(input: &str) -> Vec<Move> {
@@ -74,7 +61,7 @@ fn tokenize(input: &str) -> Vec<Move> {
 fn main() {
     // Read input into a file.
     // In this case it is the input we need to solve for.
-    let input_string = read_into_string("/home/chinmay_dd/Projects/RAdventOfCode/inp/inp1"); 
+    let input_string = util::read_into_string("/home/chinmay_dd/Projects/RAdventOfCode/inp/inp1"); 
 
     // Tokenize into a list of Moves -> move_vec
     let move_vec: Vec<Move> = tokenize(&input_string);
