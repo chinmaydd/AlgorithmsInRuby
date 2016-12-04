@@ -44,7 +44,7 @@ fn find_code(input: String) -> String {
 fn main() {
     // Read input into a file.
     // In this case it is the input we need to solve for.
-    let input_string = util::read_into_string("/home/chinmay_dd/Projects/RAdventOfCode/inp/inp2");
+    let input_string = util::read_into_string("/home/chinmay_dd/Projects/r_aoc/inp/inp2");
 
     // Find the final code sequence
     let code = find_code(input_string.clone());

@@ -28,7 +28,7 @@ fn process_list(list_of_sides: &str) -> Vec<i32> {
 fn main() {
     // Read input into a file.
     // In this case it is the input we need to solve for.
-    let input_string = util::read_into_string("/home/chinmay_dd/Projects/RAdventOfCode/inp/inp3");
+    let input_string = util::read_into_string("/home/chinmay_dd/Projects/r_aoc/inp/inp3");
 
     // Split the entire input into Vec of strings
     let split = input_string.split("\n");

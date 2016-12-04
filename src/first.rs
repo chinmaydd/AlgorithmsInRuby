@@ -61,7 +61,7 @@ fn tokenize(input: &str) -> Vec<Move> {
 fn main() {
     // Read input into a file.
     // In this case it is the input we need to solve for.
-    let input_string = util::read_into_string("/home/chinmay_dd/Projects/RAdventOfCode/inp/inp1"); 
+    let input_string = util::read_into_string("/home/chinmay_dd/Projects/r_aoc/inp/inp1"); 
 
     // Tokenize into a list of Moves -> move_vec
     let move_vec: Vec<Move> = tokenize(&input_string);
