@@ -1,5 +1,3 @@
-mod util;
-
 /// A direction is being represented here. 
 /// A move can be in one of the directions represented by this enum.
 /// This will help us in simulating a path tracer.
@@ -149,7 +147,7 @@ fn tokenize(input: &str) -> Vec<Move> {
     move_vec
 }
 
-fn main() {
+pub fn run() {
     // Read input into a file.
     // In this case it is the input we need to solve for.
     let input_string = util::read_into_string("/home/chinmay_dd/Projects/r_aoc/inp/inp1"); 

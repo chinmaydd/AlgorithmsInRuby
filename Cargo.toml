@@ -5,3 +5,4 @@ authors = ["chinmaydd <chinmay1dd@gmail.com>"]
 
 [dependencies]
 lazy_static = "0.1.*"
+rust-crypto = "^0.2"

@@ -1,5 +1,3 @@
-mod util;
-
 // Main program logic.
 // Checks if a triangle is valid or not.
 fn is_valid_triangle(sides: Vec<i32>) -> bool {

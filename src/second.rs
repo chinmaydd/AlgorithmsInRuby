@@ -1,7 +1,3 @@
-#[macro_use]
-extern crate lazy_static;
-
-mod util;
 use std::cmp;
 use std::collections::HashMap;
 
@@ -126,7 +122,7 @@ fn find_code(input: String) -> String {
     final_code
 }
 
-fn main() {
+pub fn run() {
     // Read input into a file.
     // In this case it is the input we need to solve for.
     let input_string = util::read_into_string("/home/chinmay_dd/Projects/r_aoc/inp/inp2");

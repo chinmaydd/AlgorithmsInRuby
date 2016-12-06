@@ -1,4 +1,3 @@
-mod util;
 use std::collections::HashMap;
 use std::cmp::Ordering;
 use std::char;
