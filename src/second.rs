@@ -1,35 +1,68 @@
+#[macro_use]
+extern crate lazy_static;
+
 mod util;
+use std::cmp;
 use std::collections::HashMap;
 
+lazy_static! {
+    static ref codemap: HashMap<char, (i32, i32)> = {
+        let mut cmap = HashMap::new();
+        cmap.insert('1', (0, 2));
+        cmap.insert('2', (1, 1));
+        cmap.insert('3', (1, 2));
+        cmap.insert('4', (1, 3));
+        cmap.insert('5', (2, 0));
+        cmap.insert('6', (2, 1));
+        cmap.insert('7', (2, 2));
+        cmap.insert('8', (2, 3));
+        cmap.insert('9', (2, 4));
+        cmap.insert('A', (3, 1));
+        cmap.insert('B', (3, 2));
+        cmap.insert('C', (3, 3));
+        cmap.insert('D', (4, 2));
+ 
+        cmap
+    };
+
+    let lock = [[1, 2, 3],
+                [4, 5, 6],
+                [7, 8, 9]];
+   
+    let bathroom_lock = [['0','0', '1', '0', '0'], 
+                        ['0', '2', '3', '4', '0'], 
+                        ['5', '6', '7', '8', '9'], 
+                        ['0', 'A', 'B', 'C', '0'], 
+                        ['0', '0', 'D', '0', '0']];
+}
+
 fn next_key_bathroom(key_seq: &str, init_key: char) -> char {
-   let bathroom_lock = [['0','0', '1', '0', '0'], 
-                       ['0', '2', '3', '4', '0'], 
-                       ['5', '6', '7', '8', '9'], 
-                       ['0', 'A', 'B', 'C', '0'], 
-                       ['0', '0', 'D', '0', '0']];
-
-    let mut codemap: HashMap<char, (i32, i32)> = HashMap::new();
-
-    codemap.insert('1', (0, 2));
-    codemap.insert('2', (1, 1));
-    codemap.insert('3', (1, 2));
-    codemap.insert('4', (1, 3));
-    codemap.insert('5', (2, 0));
-    codemap.insert('6', (2, 1));
-    codemap.insert('7', (2, 2));
-    codemap.insert('8', (2, 3));
-    codemap.insert('9', (2, 4));
-    codemap.insert('A', (3, 1));
-    codemap.insert('B', (3, 2));
-    codemap.insert('C', (3, 3));
-    codemap.insert('D', (4, 2));
-    
     let mut curr_key = init_key;
+    let mut temp_key: char = '0';
 
     for direction in key_seq.chars() {
+        let temp_tuple = codemap.get(&curr_key).unwrap();
         match direction {
-            // Solve!
+            'U' => {
+                let max_y = cmp::max(0, temp_tuple.0 - 1);
+                temp_key = bathroom_lock[max_y as usize][temp_tuple.1 as usize];
+            },
+            'L' => {
+                let max_x = cmp::max(0, temp_tuple.1 - 1);
+                temp_key = bathroom_lock[temp_tuple.0 as usize][max_x as usize];
+            },
+            'D' => {
+                let min_y = cmp::min(4, temp_tuple.0 + 1);
+                temp_key = bathroom_lock[min_y as usize][temp_tuple.1 as usize];
+            },
+            'R' => {
+                let min_x = cmp::min(4, temp_tuple.1 + 1);
+                temp_key = bathroom_lock[temp_tuple.0 as usize][min_x as usize];
+            },
             _ => {}
+        };
+        if temp_key != '0' {
+            curr_key = temp_key;
         }
     }
 
@@ -43,7 +76,7 @@ fn next_key_bathroom(key_seq: &str, init_key: char) -> char {
 // which is pressed.
 fn next_key(key_seq: &str, init_key: i32) -> i32 {
     let mut curr_key = init_key;
-    
+
     for direction in key_seq.chars() {
         match (direction, curr_key) {
             ('U', 1) |  ('L', 1) | ('L', 4) | ('L', 7) | ('D', 7) | ('U', 2) | ('D', 8) | ('U', 3) | ('R', 3) | ('R', 6) | ('R', 9) | ('D', 9) => {},
@@ -99,7 +132,10 @@ fn main() {
     let input_string = util::read_into_string("/home/chinmay_dd/Projects/r_aoc/inp/inp2");
 
     // Find the final code sequence
-    let code = find_code(input_string.clone());
+    // let code = find_code(input_string.clone());
+
+    // Final bathroom sequence
+    let code = find_bathroom_code(input_string.clone());
 
     // Print the result
     println!("{}", code);
@@ -110,6 +146,7 @@ fn main() {
 mod tests {
     
     use super::next_key;
+    use super::next_key_bathroom;
 
     #[test]
     fn test_1() {
@@ -137,5 +174,12 @@ mod tests {
         let test_4_str = "UUUUD";
         let test_4_init = 8;
         assert_eq!(next_key(test_4_str, test_4_init), 5);
+    }
+
+    #[test]
+    fn test_5() {
+        let test_5_str = "RRDDD";
+        let test_5_init = '5';
+        assert_eq!(next_key_bathroom(test_5_str, test_5_init), 'D');
     }
 }
