@@ -1,6 +1,7 @@
 mod util;
 use std::collections::HashMap;
 use std::cmp::Ordering;
+use std::char;
 
 // Main program logic.
 fn is_valid_room(room_code: &str) -> bool {
@@ -61,18 +62,42 @@ fn get_sector_id(room_code: &str) -> i32 {
              .unwrap()
 }
 
+fn break_cipher(room_code: &str, sector_id: i32) -> String {
+    let mut cipher: String = String::new();
+    let shift: u32 = (sector_id as u32)%26;
+    let mut new_char: u32;
+
+    for character in room_code.chars() {
+        if character == '-' {
+            cipher.push(' ');
+        } else {
+            new_char = (character as u32) + shift;
+            if new_char > 122 {
+                cipher.push(char::from_u32(new_char - 26).unwrap());
+            } else if new_char >= 97 && new_char <= 122 {
+                cipher.push(char::from_u32(new_char).unwrap());
+            }
+        }
+    }
+
+    cipher
+}
+
 fn main() {
     let input_string = util::read_into_string("/home/chinmay_dd/Projects/r_aoc/inp/inp4");
     
     let split = input_string.split("\n");
     let vec = split.collect::<Vec<_>>();
 
+    let mut sector_id: i32;
     let mut sum: i32 = 0;
 
     for room in vec {
+        sector_id = get_sector_id(room.clone());
         if is_valid_room(room.clone()) {
-            sum = sum + get_sector_id(room.clone());
+            sum = sum + sector_id;
         }
+        println!("{} {}", break_cipher(room.clone(), sector_id), sector_id);
     }
 
     println!("{}", sum);
@@ -83,6 +108,7 @@ mod tests {
     
     use super::is_valid_room;
     use super::get_sector_id;
+    use super::break_cipher;
 
     #[test]
     fn test_1() {
@@ -112,5 +138,11 @@ mod tests {
     fn test_5() {
         let test_5_str = "totally-real-room-200[decoy]";
         assert_eq!(get_sector_id(test_5_str), 200);
+    }
+
+    #[test]
+    fn test_6() {
+        let test_6_str = "qzmt-zixmtkozy-ivhz-343[something]";
+        assert_eq!(break_cipher(test_6_str, get_sector_id(test_6_str)), "very encrypted name");
     }
 }

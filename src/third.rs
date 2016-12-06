@@ -4,11 +4,23 @@ mod util;
 // Checks if a triangle is valid or not.
 fn is_valid_triangle(sides: Vec<i32>) -> bool {
     // Sum of any two sides must be larger than the third.
-    if (sides[0] + sides[1] > sides[2]) && (sides[1] + sides[2] > sides[0]) && (sides[2] + sides[0] > sides[1]) {
-        true
-    } else {
-        false
+    return (sides[0] + sides[1] > sides[2]) && (sides[1] + sides[2] > sides[0]) && (sides[2] + sides[0] > sides[1])
+}
+
+fn proces_by_collumns(all_sides: Vec<Vec<i32>>) -> i32 {
+    let mut count: i32 = 0;
+
+    for i in 0..all_sides.len()/3 {
+        let row = i*3;
+        for col in 0..3 {
+            let sides_vec = vec![all_sides[row][col], all_sides[row+1][col], all_sides[row+2][col]];
+            if is_valid_triangle(sides_vec) {
+                count += 1;
+            }
+        }
     }
+
+    count
 }
 
 // Converts a list of numbers into a Vec of integers which would simplify processing.
@@ -36,9 +48,12 @@ fn main() {
 
     let mut counter: i32 = 0;
     let mut sides_vec: Vec<i32>; 
+    let mut all_sides: Vec<Vec<i32>> = Vec::new();
 
-    for list_of_sides in vec {
+    for list_of_sides in &vec {
         sides_vec = process_list(list_of_sides.clone());
+    
+        all_sides.push(sides_vec.clone());
 
         if is_valid_triangle(sides_vec) {
             counter = counter + 1;
@@ -46,6 +61,8 @@ fn main() {
     }
 
     println!("{}", counter);
+
+    println!("{}", proces_by_collumns(all_sides.clone()));
 }
 
 // Given example tests
