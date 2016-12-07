@@ -1,5 +1,7 @@
-use crypto::digest::Digest;
-use crypto::md5::Md5;
+extern crate crypto;
+
+use self::crypto::digest::Digest;
+use self::crypto::md5::Md5;
 use std;
 
 pub fn run() {
@@ -15,12 +17,18 @@ pub fn run() {
         let mut output = [0;16];
         hasher.result(&mut output);
 
+        let mut answer: String = String::from("");
+
         let first_five = output[0] as i32 + output[1] as i32 + (output[2] >> 4) as i32;
         if first_five == 0 {
-            println!("{}", hasher.result_str().chars().nth(5).unwrap());
+            answer.push(hasher.result_str()
+                              .chars()
+                              .nth(5)
+                              .unwrap());
 
             count += 1;
             if count == 8 {
+                println!("[5.1]: {}", answer);
                 break;
             }
         }

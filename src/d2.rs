@@ -1,8 +1,12 @@
+extern crate lazy_static;
+use self::lazy_static::*;
+
+use util;
 use std::cmp;
 use std::collections::HashMap;
 
 lazy_static! {
-    static ref codemap: HashMap<char, (i32, i32)> = {
+    static ref CODEMAP: HashMap<char, (i32, i32)> = {
         let mut cmap = HashMap::new();
         cmap.insert('1', (0, 2));
         cmap.insert('2', (1, 1));
@@ -21,15 +25,15 @@ lazy_static! {
         cmap
     };
 
-    let lock = [[1, 2, 3],
-                [4, 5, 6],
-                [7, 8, 9]];
+    static ref LOCK: [[i32; 3]; 3] = [[1, 2, 3],
+                                     [4, 5, 6],
+                                     [7, 8, 9]];
    
-    let bathroom_lock = [['0','0', '1', '0', '0'], 
-                        ['0', '2', '3', '4', '0'], 
-                        ['5', '6', '7', '8', '9'], 
-                        ['0', 'A', 'B', 'C', '0'], 
-                        ['0', '0', 'D', '0', '0']];
+    static ref BATHROOM_LOCK: [[char; 5]; 5] = [['0','0', '1', '0', '0'], 
+                                                ['0', '2', '3', '4', '0'], 
+                                                ['5', '6', '7', '8', '9'], 
+                                                ['0', 'A', 'B', 'C', '0'], 
+                                                ['0', '0', 'D', '0', '0']];
 }
 
 fn next_key_bathroom(key_seq: &str, init_key: char) -> char {
@@ -37,23 +41,23 @@ fn next_key_bathroom(key_seq: &str, init_key: char) -> char {
     let mut temp_key: char = '0';
 
     for direction in key_seq.chars() {
-        let temp_tuple = codemap.get(&curr_key).unwrap();
+        let temp_tuple = CODEMAP.get(&curr_key).unwrap();
         match direction {
             'U' => {
                 let max_y = cmp::max(0, temp_tuple.0 - 1);
-                temp_key = bathroom_lock[max_y as usize][temp_tuple.1 as usize];
+                temp_key = BATHROOM_LOCK[max_y as usize][temp_tuple.1 as usize];
             },
             'L' => {
                 let max_x = cmp::max(0, temp_tuple.1 - 1);
-                temp_key = bathroom_lock[temp_tuple.0 as usize][max_x as usize];
+                temp_key = BATHROOM_LOCK[temp_tuple.0 as usize][max_x as usize];
             },
             'D' => {
                 let min_y = cmp::min(4, temp_tuple.0 + 1);
-                temp_key = bathroom_lock[min_y as usize][temp_tuple.1 as usize];
+                temp_key = BATHROOM_LOCK[min_y as usize][temp_tuple.1 as usize];
             },
             'R' => {
                 let min_x = cmp::min(4, temp_tuple.1 + 1);
-                temp_key = bathroom_lock[temp_tuple.0 as usize][min_x as usize];
+                temp_key = BATHROOM_LOCK[temp_tuple.0 as usize][min_x as usize];
             },
             _ => {}
         };
@@ -128,13 +132,15 @@ pub fn run() {
     let input_string = util::read_into_string("/home/chinmay_dd/Projects/r_aoc/inp/inp2");
 
     // Find the final code sequence
-    // let code = find_code(input_string.clone());
+    let initial_code = find_code(input_string.clone());
+
+    println!("[2.1]: {}", initial_code);
 
     // Final bathroom sequence
-    let code = find_bathroom_code(input_string.clone());
+    let bathroom_code = find_bathroom_code(input_string.clone());
 
     // Print the result
-    println!("{}", code);
+    println!("[2.2]: {}", bathroom_code);
 }
 
 // Given example tests.

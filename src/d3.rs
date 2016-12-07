@@ -1,3 +1,5 @@
+use util;
+
 // Main program logic.
 // Checks if a triangle is valid or not.
 fn is_valid_triangle(sides: Vec<i32>) -> bool {
@@ -35,7 +37,7 @@ fn process_list(list_of_sides: &str) -> Vec<i32> {
     return_list
 }
 
-fn main() {
+pub fn run() {
     // Read input into a file.
     // In this case it is the input we need to solve for.
     let input_string = util::read_into_string("/home/chinmay_dd/Projects/r_aoc/inp/inp3");
@@ -58,9 +60,9 @@ fn main() {
         }
     }
 
-    println!("{}", counter);
+    println!("[3.1]: {}", counter);
 
-    println!("{}", proces_by_collumns(all_sides.clone()));
+    println!("[3.2]: {}", proces_by_collumns(all_sides.clone()));
 }
 
 // Given example tests

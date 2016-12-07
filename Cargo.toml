@@ -4,5 +4,5 @@ version = "0.1.0"
 authors = ["chinmaydd <chinmay1dd@gmail.com>"]
 
 [dependencies]
-lazy_static = "0.1.*"
-rust-crypto = "^0.2"
+lazy_static = "*"
+rust-crypto = "*"

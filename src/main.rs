@@ -1,28 +1,19 @@
-#[macro_use]
-extern crate lazy_static;
-extern crate crypto;
+#![feature(slice_concat_ext)]
+#![feature(conservative_impl_trait)]
 
-use crypto::md5::Md5;
-use crypto::digest::Digest;
+#![allow(dead_code, unused_features, unused_imports)]
 
 mod util;
-mod first;
-mod second;
-mod third;
-mod fourth;
-mod fifth;
+mod d1;
+mod d2;
+mod d3;
+mod d4;
+mod d5;
 
 fn main() {
-    // first::run();
-    second::run();
-    // third.run();
-    // fourth.run();
-    fifth::run();
-}
-
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn it_works() {
-    }
+    d1::run();
+    d2::run();
+    d3::run();
+    d4::run();
+    d5::run();
 }

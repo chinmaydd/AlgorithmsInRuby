@@ -1,6 +1,7 @@
 use std::collections::HashMap;
 use std::cmp::Ordering;
 use std::char;
+use util;
 
 // Main program logic.
 fn is_valid_room(room_code: &str) -> bool {
@@ -82,7 +83,7 @@ fn break_cipher(room_code: &str, sector_id: i32) -> String {
     cipher
 }
 
-fn main() {
+pub fn run() {
     let input_string = util::read_into_string("/home/chinmay_dd/Projects/r_aoc/inp/inp4");
     
     let split = input_string.split("\n");
@@ -96,10 +97,13 @@ fn main() {
         if is_valid_room(room.clone()) {
             sum = sum + sector_id;
         }
-        println!("{} {}", break_cipher(room.clone(), sector_id), sector_id);
+        let resolved_name = break_cipher(room.clone(), sector_id);
+        if resolved_name.contains("north") {
+            println!("[4.2]: {}", sector_id);
+        }
     }
 
-    println!("{}", sum);
+    println!("[4.1]: {}", sum);
 }
 
 #[cfg(test)]

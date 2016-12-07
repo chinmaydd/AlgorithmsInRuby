@@ -1,3 +1,5 @@
+use util;
+
 /// A direction is being represented here. 
 /// A move can be in one of the directions represented by this enum.
 /// This will help us in simulating a path tracer.
@@ -159,7 +161,7 @@ pub fn run() {
     let num_of_blocks = blocks_away(move_vec.clone());
 
     // Print the result
-    println!("Number of blocks: {}", num_of_blocks);
+    println!("[1.1]: {}", num_of_blocks);
 }
 
 /// Given a vector of moves, it tells us how many blocks away the final position is.
@@ -222,7 +224,7 @@ fn blocks_away(path: Vec<Move>) -> i32 {
                 match path_segment.intersect(&line) {
                     Some((x, y)) => 
                     {   
-                        println!("First intersection Point: {} {}", x, y);
+                        println!("[1.2]: {}", x.abs() + y.abs());
                         solved = true;
                     },
                     _ => {}
