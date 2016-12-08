@@ -21,10 +21,15 @@ pub fn run() {
         }
 
         let cal_map = ans_map.clone();
-        let mut values: Vec<(&char, &i32)> = cal_map.iter().collect();
-        values.sort_by(|a, b| a.1.cmp(b.1).reverse());
+        let cal_map_dup = ans_map.clone();
         
-        println!("{} {}", values[0].0, values[0].1);
+        let mut values: Vec<(&char, &i32)> = cal_map.iter().collect();
+        let mut values_dup: Vec<(&char, &i32)> = cal_map_dup.iter().collect();
+
+        values.sort_by(|a, b| a.1.cmp(b.1).reverse());
+        values_dup.sort_by(|a, b| a.1.cmp(b.1));
+        
+        println!("{} {}", values_dup[0].0, values_dup[0].1);
         
         ans_map.clear();
     }
