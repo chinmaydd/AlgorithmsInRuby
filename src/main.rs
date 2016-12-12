@@ -10,6 +10,7 @@ mod d3;
 mod d4;
 mod d5;
 mod d6;
+mod d7;
 
 fn main() {
     //d1::run();
@@ -17,5 +18,6 @@ fn main() {
     //d3::run();
     //d4::run();
     //d5::run();
-    d6::run();
+    //d6::run();
+    d7::run();
 }

@@ -73,13 +73,13 @@ mod tests {
 
     #[test]
     fn test_1() {
-        let test_1_sides = [5,10,25];
+        let test_1_sides = vec![5,10,25];
         assert_eq!(is_valid_triangle(test_1_sides), false);
     }
 
     #[test]
     fn test_2() {
-        let test_2_sides = [5,5,5];
+        let test_2_sides = vec![5,5,5];
         assert_eq!(is_valid_triangle(test_2_sides), true);
     }
 }

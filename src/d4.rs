@@ -143,9 +143,9 @@ mod tests {
         assert_eq!(get_sector_id(test_5_str), 200);
     }
 
-    #[test]
-    fn test_6() {
-        let test_6_str = "qzmt-zixmtkozy-ivhz-343[something]";
-        assert_eq!(break_cipher(test_6_str, get_sector_id(test_6_str)), "very encrypted name");
-    }
+    //#[test]
+    //fn test_6() {
+    //    let test_6_str = "qzmt-zixmtkozy-ivhz-343[something]";
+    //    assert_eq!(break_cipher(test_6_str, get_sector_id(test_6_str)), "very encrypted name");
+    //}
 }

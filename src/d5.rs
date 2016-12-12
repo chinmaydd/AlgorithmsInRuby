@@ -10,7 +10,6 @@ pub fn run() {
 
     let key = "wtnhxymk".as_bytes();
     let mut count = 0;
-    let answer: String = String::from("");
     let mut first_char: char;
     let mut second_char: char;
     let mut solved_map = HashMap::new();
@@ -21,7 +20,6 @@ pub fn run() {
         
         let mut output = [0;16];
         hasher.result(&mut output);
-
 
         let first_five = output[0] as i32 + output[1] as i32 + (output[2] >> 4) as i32;
         if first_five == 0 {

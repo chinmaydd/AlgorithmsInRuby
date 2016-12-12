@@ -10,7 +10,7 @@ pub fn run() {
 
     for i in 0..8 {
         for j in &vec {
-            let mut current_char = j.chars().nth(i).unwrap();
+            let current_char = j.chars().nth(i).unwrap();
             
             if ans_map.contains_key(&current_char) {
                 let count: i32 = *ans_map.get(&current_char).unwrap();
