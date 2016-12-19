@@ -1,0 +1,8 @@
+[package]
+name = "r_aoc"
+version = "0.1.0"
+authors = ["chinmaydd <chinmay1dd@gmail.com>"]
+
+[dependencies]
+lazy_static = "*"
+rust-crypto = "*"
