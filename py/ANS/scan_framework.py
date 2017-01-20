@@ -20,48 +20,49 @@ Options:
 """
 
 def ack(destination, ports):
-  for dst_port in ports:
-    ans, unans = sr(IP(dst = destination)/TCP(flags="A",dport=dst_port), timeout=10, verbose=0)
+    for dst_port in ports:
+        ans, unans = sr(IP(dst = destination)/TCP(flags="A",dport=dst_port), timeout=5, verbose=0)
 
     for s, r in ans:
-      if s[TCP].dport == r[TCP].sport:
-        print str(s[TCP].dport) + " is unfiltered."
+        if s[TCP].dport == r[TCP].sport:
+            print str(s[TCP].dport) + " is unfiltered."
 
     for s in unans:
         print str(s[TCP].dport) + " is filtered."
 
 def xmas(destination, ports):
-  for dst_port in ports:
-    resp = sr1(IP(dst=destination)/TCP(dport=dst_port,flags="FPU"),timeout=10, verbose=0)
+    for dst_port in ports:
+        resp = sr1(IP(dst=destination)/TCP(dport=dst_port,flags="FPU"),timeout=10, verbose=0)
     if (str(type(resp))=="<type 'NoneType'>"):
-      print "Port " + str(dst_port) + " is open|filtered."
+        print "Port " + str(dst_port) + " is open|filtered."
+
     elif(resp.haslayer(TCP)):
-      if(resp.getlayer(TCP).flags == 0x14):
-        print "Port " + str(dst_port) + " is closed."
+        if(resp.getlayer(TCP).flags == 0x14):
+            print "Port " + str(dst_port) + " is closed."
 
 def ping(destination, ports):
-  for dst_port in ports:
-    ans, unans = sr(IP(dst=destination)/TCP(flags="S", dport=dst_port), timeout=10, verbose=0)
+    for dst_port in ports:
+        ans, unans = sr(IP(dst=destination)/TCP(flags="S", dport=dst_port), timeout=10, verbose=0)
     for s, r in ans:
-      print str(dst_port) + " is alive."
+        print str(dst_port) + " is alive."
 
     if not ans:
-      print str(dst_port) + " did not respond back."
+        print str(dst_port) + " did not respond back."
 
 def get_destination_ports(port_str):
-  if '-' in port_str:
-    a,b = port_str.split('-')
-    return list(range(int(a), int(b)))
-  else:
-    return [int(x) for x in port_str.split(',')]
+    if '-' in port_str:
+        a,b = port_str.split('-')
+        return list(range(int(a), int(b)))
+    else:
+        return [int(x) for x in port_str.split(',')]
 
 if __name__=="__main__":
     arguments = docopt(__doc__, version = "3.2.2")
-    
+
     ports = get_destination_ports(arguments['<port>'])
     destination = arguments['<destination>']
     technique = arguments['<scan>']
-    
+
     try:
         locals()[technique](destination, ports)
     except Exception as e:
