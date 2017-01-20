@@ -3,6 +3,8 @@ import sys
 import pdb
 from docopt import docopt
 
+sys.stdout = open('results.txt', 'w')
+
 __doc__ = """Poppy: Port scanning framework.
 
 Usage:
@@ -21,38 +23,39 @@ Options:
 
 def ack(destination, ports):
     for dst_port in ports:
-        ans, unans = sr(IP(dst = destination)/TCP(flags="A",dport=dst_port), timeout=5, verbose=0)
+        ans, unans = sr(IP(dst = destination)/TCP(flags="A",dport=dst_port), timeout=10, verbose=0)
 
-    for s, r in ans:
-        if s[TCP].dport == r[TCP].sport:
-            print str(s[TCP].dport) + " is unfiltered."
+        for s, r in ans:
+            if s[TCP].dport == r[TCP].sport:
+                print str(s[TCP].dport) + " is unfiltered."
 
-    for s in unans:
-        print str(s[TCP].dport) + " is filtered."
+        for s in unans:
+            print str(s[TCP].dport) + " is filtered."
 
 def xmas(destination, ports):
     for dst_port in ports:
         resp = sr1(IP(dst=destination)/TCP(dport=dst_port,flags="FPU"),timeout=10, verbose=0)
-    if (str(type(resp))=="<type 'NoneType'>"):
-        print "Port " + str(dst_port) + " is open|filtered."
-
-    elif(resp.haslayer(TCP)):
-        if(resp.getlayer(TCP).flags == 0x14):
-            print "Port " + str(dst_port) + " is closed."
+    
+        if (str(type(resp))=="<type 'NoneType'>"):
+            print "Port " + str(dst_port) + " is open|filtered."
+        elif(resp.haslayer(TCP)):
+            if(resp.getlayer(TCP).flags == 0x14):
+                print "Port " + str(dst_port) + " is closed."
 
 def ping(destination, ports):
     for dst_port in ports:
         ans, unans = sr(IP(dst=destination)/TCP(flags="S", dport=dst_port), timeout=10, verbose=0)
-    for s, r in ans:
-        print str(dst_port) + " is alive."
+    
+        for s, r in ans:
+            print str(dst_port) + " is alive."
 
-    if not ans:
-        print str(dst_port) + " did not respond back."
+        if not ans:
+            print str(dst_port) + " did not respond back."
 
 def get_destination_ports(port_str):
     if '-' in port_str:
-        a,b = port_str.split('-')
-        return list(range(int(a), int(b)))
+        a = port_str.split('-')
+        return list(range(int(a[0]), int(a[1])))
     else:
         return [int(x) for x in port_str.split(',')]
 
