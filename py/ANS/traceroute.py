@@ -2,6 +2,8 @@ from scapy.all import *
 import sys
 from docopt import docopt
 
+# dport, maxttl, SA
+
 __doc__ = """Traceroute implementation in Python
 
 Usage:
