@@ -52,11 +52,11 @@ pub fn run () {
     // Count final frequency
     let final_frequency = count_final_frequency(&frequency_vec);
 
-    // Count first repeating frequency
-    let first_repeating_frequency = calculate_first_repeating_frequency(&frequency_vec);
-
     // Print result for Part One
     println!("[1.1]: {}", final_frequency);
+
+    // Count first repeating frequency
+    let first_repeating_frequency = calculate_first_repeating_frequency(&frequency_vec);
 
     // Print result for Part Two
     println!("[1.2]: {}", first_repeating_frequency);
