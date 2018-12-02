@@ -45,14 +45,14 @@ fn process_ip(input: &str) -> bool {
     solved
 }
 
-fn check_if_supports_ssl(substr: &str, total_vec: Vec<&str>) -> bool {
+fn check_if_supports_ssl(_substr: &str, _total_vec: Vec<&str>) -> bool {
     false
 }
 
 fn process_ip_for_ssl(input: &str) -> bool {
     // Let us assume that the string is of the form a.b.c.a.b.c...
 
-    let v: Vec<&str> = input.split(|c| c == ']' || c == '[').collect();
+    let _v: Vec<&str> = input.split(|c| c == ']' || c == '[').collect();
 
     false
 }

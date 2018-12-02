@@ -1,23 +1,28 @@
 #![feature(slice_concat_ext)]
-#![feature(conservative_impl_trait)]
 
 #![allow(dead_code, unused_features, unused_imports)]
 
 mod util;
-mod d1;
-mod d2;
-mod d3;
-mod d4;
-mod d5;
-mod d6;
-mod d7;
+
+// Solutions for 2016
+mod d1_2016;
+mod d2_2016;
+mod d3_2016;
+mod d4_2016;
+mod d5_2016;
+mod d6_2016;
+mod d7_2016;
+
+// Solutions for 2018
+mod d1_2018;
 
 fn main() {
-    //d1::run();
-    //d2::run();
-    //d3::run();
-    //d4::run();
-    //d5::run();
-    //d6::run();
-    d7::run();
+    // d1_2016::run();
+    // d2_2016::run();
+    // d3_2016::run();
+    // d4_2016::run();
+    // d5_2016::run();
+    // d6_2016::run();
+    // d7_2016::run();
+    d1_2018::run();
 }
