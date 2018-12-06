@@ -6,3 +6,4 @@ authors = ["chinmaydd <chinmay1dd@gmail.com>"]
 [dependencies]
 lazy_static = "*"
 rust-crypto = "*"
+ndarray = "*"
