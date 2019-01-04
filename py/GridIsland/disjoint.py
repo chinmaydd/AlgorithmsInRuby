@@ -9,6 +9,7 @@ class Node:
 class DisjointSet:
     def __init__(self):
         self.members = {}
+        self.sets = 0
 
     def get(self, val):
         if val in self.members:
@@ -19,6 +20,7 @@ class DisjointSet:
     def make_set(self, val):
         if val not in self.members:
             self.members[val] = Node(0, val)
+            self.sets += 1
 
     def find(self, node):
         if node.parent != node:
@@ -41,13 +43,10 @@ class DisjointSet:
             # Increase rank if new parent has same rank as child
             self.members[root_1.val].rank = self.members[root_1.val].rank + 1
 
-    def num_sets(self):
-        count = 0
-        for member in self.members:
-            if self.members[member].parent == self.members[member]:
-                count += 1
+        self.sets -= 1
 
-        return count
+    def num_sets(self):
+        return self.sets
                 
 if __name__ == "__main__":
     d = DisjointSet()
